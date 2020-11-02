@@ -52,6 +52,12 @@ public class Sort {
 		if (input.equals("1")) {
 			inputArray = bubbleSort(inputArray);
 		}
+		if (input.equals("2")) {
+			inputArray = selectionSort(inputArray);
+		}
+		if (input.equals("3")) {
+			inputArray = tableSort(inputArray);
+		}
 		for (int i = 0; i < InputStringArray.length; i++) {
 			System.out.println(inputArray[i]);
 		}
@@ -71,6 +77,35 @@ public class Sort {
 				}
 			}
 		}
+		return array;
+	}
+	int[] selectionSort(int[] array) {
+		
+		for (int j = 0; j < array.length; j++) {
+			int smallestNumber = array[j];
+			int smallestIndex = j;
+			for (int i = j; i < array.length; i++) {
+				if(array[i] <smallestNumber) {
+					smallestNumber = array[i];
+					smallestIndex = i;
+				}
+			}
+			int temp = array[smallestIndex];
+			array[smallestIndex] = array[j];
+			array[j] = temp;
+		}
+		
+		
+		return array;
+	}
+	//Tally how often you see each number. Print out that number of times
+	int[] tableSort(int[] array) {
+		int[] tally = new int[1001];
+		for (int i = 0; i < array.length; i++) {
+			tally[array[i]]++;
+			
+		}
+		
 		return array;
 	}
 	
