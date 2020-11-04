@@ -2,6 +2,9 @@ package Sort;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.Scanner;
 
 public class Sort {
@@ -10,6 +13,7 @@ public class Sort {
 	String input;
 	Scanner fileInput;
 	int[] inputArray;
+	long startTime;
 	
 	public Sort() {
 		System.out.println("Enter a number for the input file");
@@ -49,6 +53,7 @@ public class Sort {
 			input = consoleInput.nextLine();
 			}
 		}
+		startTime=System.currentTimeMillis();
 		if (input.equals("1")) {
 			inputArray = bubbleSort(inputArray);
 		}
@@ -58,11 +63,28 @@ public class Sort {
 		if (input.equals("3")) {
 			inputArray = tableSort(inputArray);
 		}
+		if (input.equals("4")) {
+			inputArray = quickSort(inputArray);
+		}
+		long totalTime = System.currentTimeMillis() - startTime;
+		System.out.println("Total time:" + totalTime);
+		try {
+		PrintWriter pw = new PrintWriter(new FileWriter(new File("output.txt")));
+		String output = "";
 		for (int i = 0; i < InputStringArray.length; i++) {
-			System.out.println(inputArray[i]);
+			
+			output += inputArray[i] + ", ";
+		} 
+		output+="\nTotal time:" + totalTime;
+		pw.write(output);
+		pw.close();
+		}catch (IOException ex) {
+			ex.printStackTrace();
+			System.exit(0);
 		}
 		
 	}
+	
 	//compare each pair of numbers and move the larger to the right.  
 	int[] bubbleSort(int[] array) {
 		for (int j = 0; j < array.length; j++) {
@@ -102,10 +124,32 @@ public class Sort {
 	int[] tableSort(int[] array) {
 		int[] tally = new int[1001];
 		for (int i = 0; i < array.length; i++) {
-			tally[array[i]]++;
-			
+			tally[array[i]]++;	
+		}
+		int count = 0;
+		//i keeps track of the actual number
+		for (int i = 0; i < tally.length; i++) {
+			//j keeps track of how many times we've seen that number
+			for (int j = 0; j < tally[i]; j++) {
+				array[count] = i;
+				count++;
+			}
 		}
 		
+		return array;
+	}
+	int[] quickSort(int[] array) {
+		int pivot = inputArray.length-1;
+		int i = -1;
+		for (int j = 0; j < array.length-1; j++) {//-2 so i dont have to deal with the pivot number
+			if (j<pivot) {
+				i++;
+				int temp =inputArray[j];
+				inputArray[j] = inputArray[i];
+				inputArray[i] = temp;
+			}
+		}
+		System.out.println(pivot);
 		return array;
 	}
 	
