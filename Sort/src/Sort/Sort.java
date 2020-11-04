@@ -1,5 +1,10 @@
 package Sort;
-
+/*Name:Sarah Temple
+ * Date: November 4th 2020
+ * Comments: THis will sort a users numbers from a file and can use different ways to sort. I got help with Ryan B for the Quick sort and here is the
+ * link I used. https://www.youtube.com/watch?v=MZaf_9IZCrc There is more information below. 
+ * 
+ * */
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -82,6 +87,10 @@ public class Sort {
 			ex.printStackTrace();
 			System.exit(0);
 		}
+		for (int i = 0; i < InputStringArray.length; i++) {
+			
+			System.out.println(inputArray[i]);
+		} 
 		
 	}
 	
@@ -138,18 +147,29 @@ public class Sort {
 		
 		return array;
 	}
+	
+
+// This is the link where someone explained how to do quicksort
+// his skills are legendary and I understand it well now.
+//https://www.youtube.com/watch?v=MZaf_9IZCrc
+//Ryan B.  and I worked together to figure this out. 
 	int[] quickSort(int[] array) {
-		int pivot = inputArray.length-1;
-		int i = -1;
-		for (int j = 0; j < array.length-1; j++) {//-2 so i dont have to deal with the pivot number
-			if (j<pivot) {
-				i++;
-				int temp =inputArray[j];
-				inputArray[j] = inputArray[i];
-				inputArray[i] = temp;
+		
+		for (int k = 0; k < array.length-1; k++) {
+			int pivot = array.length-1;
+			int i = -1; // i is the thing thats going to be switched
+			for (int j = 0; j < array.length-1; j++) {
+				if (array[j]<array[pivot]) { // j is the thing being compared to the pivot
+					i++;
+					int temp =array[j];
+					array[j] = array[i];
+					array[i] = temp;
+				}
 			}
+			int temp = array[pivot];
+			array[pivot] = array[i+1];
+			array[i+1] = temp;
 		}
-		System.out.println(pivot);
 		return array;
 	}
 	
